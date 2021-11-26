@@ -3,6 +3,7 @@ import 'package:bsbt/model/ketodetails.dart';
 import 'package:bsbt/screens/web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,79 +42,89 @@ class _ListingScreenState extends State<ListingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appbarColor,
-          title: const Text(
-            'Articles',
-            style: TextStyle(
-                fontWeight: FontWeight.w900, color: Colors.black, fontSize: 25),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        //backwardsCompatibility: false,
+        systemOverlayStyle:
+            const SystemUiOverlayStyle(statusBarColor: Color(0xffF33A6A)),
+        backgroundColor: appbarColor,
+        title: const Text(
+          'Articles',
+          style: TextStyle(
+              fontWeight: FontWeight.w900, color: Colors.black, fontSize: 25),
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: FutureBuilder<String>(
-            future: downloadData(), // function where you call your api
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              // AsyncSnapshot<Your object type>
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const ProgressDialogPrimary();
-              } else {
-                if (snapshot.hasError) {
-                  return const Align(
-                      alignment: Alignment.center,
-                      child: Text('Sorry..Something went wrong'));
-                } else {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CustumContainer(
-                        widgettype: 'nwider',
-                        title: 'Newly Added',
-                        length: length,
-                        intitialPosition: 0,
-                        kdetails: ketodetails,
-                      ),
-                      CustumContainer(
-                        widgettype: 'wider',
-                        title: 'Discover',
-                        length: length,
-                        intitialPosition: length * 1,
-                        kdetails: ketodetails,
-                      ),
-                      CustumContainer(
-                        widgettype: 'nwider',
-                        title: 'Trending Now',
-                        length: length,
-                        intitialPosition: length * 2,
-                        kdetails: ketodetails,
-                      ),
-                      CustumContainer(
-                        widgettype: 'wider',
-                        title: 'Popular Near You',
-                        length: length,
-                        intitialPosition: length * 3,
-                        kdetails: ketodetails,
-                      ),
-                      CustumContainer(
-                        widgettype: 'wider',
-                        title: 'More',
-                        length: length,
-                        intitialPosition: length * 4 + remainder,
-                        kdetails: ketodetails,
-                      ),
-                    ],
-                  ); // snaps
-                }
-              }
-            },
-          ),
-        )),
       ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: FutureBuilder<String>(
+          future: downloadData(), // function where you call your api
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            // AsyncSnapshot<Your object type>
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const ProgressDialogPrimary();
+            } else {
+              if (snapshot.hasError) {
+                return const Align(
+                    alignment: Alignment.center,
+                    child: Text('Sorry..Something went wrong'));
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Container(
+                    //   child: Align(
+                    //     alignment: Alignment.topLeft,
+                    //     child: Text(
+                    //       'Articles',
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.w900,
+                    //           color: Colors.black,
+                    //           fontSize: 25),
+                    //     ),
+                    //   ),
+                    // ),
+                    CustumContainer(
+                      widgettype: 'nwider',
+                      title: 'Newly Added',
+                      length: length,
+                      intitialPosition: 0,
+                      kdetails: ketodetails,
+                    ),
+                    CustumContainer(
+                      widgettype: 'wider',
+                      title: 'Discover',
+                      length: length,
+                      intitialPosition: length * 1,
+                      kdetails: ketodetails,
+                    ),
+                    CustumContainer(
+                      widgettype: 'nwider',
+                      title: 'Trending Now',
+                      length: length,
+                      intitialPosition: length * 2,
+                      kdetails: ketodetails,
+                    ),
+                    CustumContainer(
+                      widgettype: 'wider',
+                      title: 'Popular Near You',
+                      length: length,
+                      intitialPosition: length * 3,
+                      kdetails: ketodetails,
+                    ),
+                    CustumContainer(
+                      widgettype: 'wider',
+                      title: 'More',
+                      length: length,
+                      intitialPosition: length * 4 + remainder,
+                      kdetails: ketodetails,
+                    ),
+                  ],
+                ); // snaps
+              }
+            }
+          },
+        ),
+      )),
     );
   }
 }
