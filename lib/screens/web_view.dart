@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:io';
 
@@ -20,14 +21,19 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.url);
-    return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: WebView(
-          initialUrl: Uri.encodeFull(widget.url),
-          javascriptMode: JavascriptMode.unrestricted,
+    //print(widget.url);
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value:const SystemUiOverlayStyle(statusBarColor: Color(0xffF33A6A)) ,
+      child: Scaffold(
+        body: SafeArea(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: WebView(
+              initialUrl: Uri.encodeFull(widget.url),
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
+          ),
         ),
       ),
     );

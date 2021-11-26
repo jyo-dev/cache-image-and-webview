@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:optimized_cached_image/optimized_cached_image.dart';
 
 class ListingScreen extends StatefulWidget {
   const ListingScreen({Key? key}) : super(key: key);
@@ -39,8 +38,6 @@ class _ListingScreenState extends State<ListingScreen> {
     }
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +46,7 @@ class _ListingScreenState extends State<ListingScreen> {
         title: const Text(
           'Articles',
           style: TextStyle(
-              fontWeight: FontWeight.w900,
-              color: Colors.black,
-              fontSize: 25),
+              fontWeight: FontWeight.w900, color: Colors.black, fontSize: 25),
         ),
       ),
       body: SafeArea(
@@ -140,9 +135,9 @@ class CustumContainer extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
             child: Container(
-              decoration:const BoxDecoration(
-                color:Color(0xffF5F5F7),
-                borderRadius:BorderRadius.all(
+              decoration: const BoxDecoration(
+                color: Color(0xffF5F5F7),
+                borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
@@ -157,13 +152,13 @@ class CustumContainer extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, top: 10, right: 20),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  title,
-                  style:GoogleFonts.roboto(textStyle: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                      fontSize: 19),)
-                ),
+                child: Text(title,
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
+                          fontSize: 19),
+                    )),
               ),
             ),
             Padding(
@@ -199,16 +194,18 @@ class CustumContainer extends StatelessWidget {
                                   children: [
                                     Container(
                                       width: widgettype == 'wider'
-                                          ? 190.0.w
-                                          : 120.w,
+                                          ? 210.0.w
+                                          : 140.w,
                                       height: widgettype == 'wider'
                                           ? 120.0.h
                                           : 150.h,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: CachedNetworkImageProvider(
-                                                kdetails[dataIndex].img[0])),
+                                          fit: BoxFit.cover,
+                                          image: OptimizedCacheImageProvider(
+                                              kdetails[dataIndex].img[0])
+                                              
+                                        ),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(8.0)),
                                         //color: Colors.redAccent,
@@ -228,7 +225,8 @@ class CustumContainer extends StatelessWidget {
                                           strutStyle:
                                               const StrutStyle(fontSize: 12.0),
                                           text: TextSpan(
-                                              style: const TextStyle(fontWeight: FontWeight.normal,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
                                                   color: Colors.black),
                                               text: kdetails[dataIndex]
                                                   .description),
@@ -270,7 +268,7 @@ class SlideRightRoute extends PageRouteBuilder {
           ) =>
               SlideTransition(
             position: Tween<Offset>(
-              begin: const Offset(-1, 0),
+              begin: const Offset(1.0, 0.0),
               end: Offset.zero,
             ).animate(animation),
             child: child,

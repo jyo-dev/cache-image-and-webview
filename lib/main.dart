@@ -7,7 +7,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
-     MyApp()
+     const MyApp()
     // MultiProvider(
     //   providers: [ChangeNotifierProvider.value(value: dataProvider())],
     //   child: MyApp(),
@@ -16,11 +16,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(360, 690),
+      designSize: const Size(360, 690),
       builder: () => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
-          '/': (context) => ListingScreen(),
+          '/': (context) => const ListingScreen(),
           // When navigating to the "/second" route, build the SecondScreen widget.
         },
       ),
